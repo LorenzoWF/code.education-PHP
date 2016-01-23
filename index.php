@@ -1,3 +1,26 @@
+<?php
+
+    function fazerRota(){
+
+        $rota = parse_url("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
+
+        $path = str_replace("/code_education/PHP/","",$rota['path']);
+
+        $rotasValidas = array('home', 'empresa', 'produtos', 'servicos', 'contato', 'recebe_contato');
+
+        if (in_array($path,$rotasValidas)){
+            require($path.".php");
+        } else if($path == ""){
+            $path = "home";
+            require($path.".php");
+        } else{
+            echo "NAO EXISTE";
+        }
+
+    }
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,16 +53,7 @@
 
 				<?php
 
-					$paginas = array('home', 'empresa', 'produtos', 'servicos', 'contato', 'recebe_contato');
-
-
-					if(isset($_GET["arquivo"])){
-						if(in_array($_GET["arquivo"], $paginas)){
-								require_once($_GET["arquivo"]).".php";
-						} else {
-							echo "</br>"."A PAGINA SOLICITADA NAO EXISTE";
-						}
-      				}
+                    fazerRota();
 
 		        ?>
 
