@@ -9,7 +9,7 @@
         $rotasValidas = array('home', 'empresa', 'produtos', 'servicos', 'contato', 'recebe_contato');
 
         if (in_array($path,$rotasValidas)){
-            require("pages/".$path.".php");
+			require("pages/".$path.".php");
         } else if($path == ""){
             $path = "home";
             require("pages/".$path.".php");
@@ -45,7 +45,7 @@
 
 			<div class="row menu">
 
-				<?php require_once('menu.php'); ?>
+				<?php require_once('pages/menu.php'); ?>
 
 			</div>
 
