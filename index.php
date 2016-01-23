@@ -9,10 +9,10 @@
         $rotasValidas = array('home', 'empresa', 'produtos', 'servicos', 'contato', 'recebe_contato');
 
         if (in_array($path,$rotasValidas)){
-            require($path.".php");
+            require("pages/".$path.".php");
         } else if($path == ""){
             $path = "home";
-            require($path.".php");
+            require("pages/".$path.".php");
         } else{
             echo "NAO EXISTE";
         }
@@ -24,7 +24,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Index</title>
+	<title>Code Education</title>
 
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -39,7 +39,7 @@
 
 			<div class="row cabecalho">
 
-				<h1>SITE TESTE</h1>
+				<h1>Code Education - PHP Foundation</h1>
 
 			</div>
 

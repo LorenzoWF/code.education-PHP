@@ -2,7 +2,7 @@
 
 <br>
 
-<form method="post" action="index.php?arquivo=recebe_contato">
+<form method="post" action="recebe_contato">
 
   <div class="form-group col-md-3">
 
