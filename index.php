@@ -14,8 +14,8 @@
             $path = "home";
             require("pages/".$path.".php");
         } else{
-            echo "NAO EXISTE";
-        }
+			require("pages/404.php");
+		}
 
     }
 
