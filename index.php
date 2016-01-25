@@ -6,16 +6,16 @@
 
         $path = str_replace("/code_education/PHP/","",$rota['path']);
 
-        $rotasValidas = array('home', 'empresa', 'produtos', 'servicos', 'contato', 'recebe_contato');
+        $rotasValidas = array('home', 'empresa', 'produtos', 'servicos', 'contato', 'pesquisa', 'recebe_contato');
 
         if (in_array($path,$rotasValidas)){
-			require("pages/".$path.".php");
+			       require("pages/".$path.".php");
         } else if($path == ""){
             $path = "home";
             require("pages/".$path.".php");
         } else{
-			require("pages/404.php");
-		}
+			       require("pages/404.php");
+		    }
 
     }
 
@@ -45,17 +45,28 @@
 
 			<div class="row menu">
 
-				<?php require_once('pages/menu.php'); ?>
+        <div class="col-md-8">
+
+          <?php require_once('pages/menu.php'); ?>
+
+        </div>
+
+        <div class="col-md-4">
+
+          <form class="form-inline" action="pages/pesquisa.php" method="post">
+
+            <button type="submit" class="btn btn-default" name="button">Pesquisar</button>
+            <input type="text" class="form-control" name="name" value="">
+
+          </form>
+
+        </div>
 
 			</div>
 
 			<div class="row conteudo">
 
-				<?php
-
-                    fazerRota();
-
-		        ?>
+				<?php fazerRota();?>
 
 			</div>
 
@@ -66,7 +77,7 @@
 				<div class="navbar-text">
 
 					<p>
-						Todos os direitos reservados - 
+						Todos os direitos reservados -
 						<?php
 
 						$ano=date('Y');
