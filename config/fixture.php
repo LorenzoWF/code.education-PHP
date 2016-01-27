@@ -2,109 +2,66 @@
 
   require 'connect.php';
 
-  //TABELA HOME
+  //TABELA lista_paginas
 
-  //LIMPANDO TABELA
-  $conn->query("DROP TABLE IF EXISTS home;");
+  //LIMPANDO TABELAS
+
+  $conn->query("DROP TABLE IF EXISTS conteudo;");
+  $conn->query("DROP TABLE IF EXISTS paginas;");
+  $conn->query("DROP TABLE IF EXISTS cadastro_contato;");
 
   //CRIAR TABELA
-  $conn->query("CREATE TABLE home (
-    id INT NOT NULL AUTO_INCREMENT,
-    titulo VARCHAR(10) NOT NULL,
-    conteudo VARCHAR(500) NOT NULL,
-    PRIMARY KEY (id));"
+  $conn->query("CREATE TABLE paginas (
+  	id_pagina INT NOT NULL AUTO_INCREMENT,
+  	nome_pagina VARCHAR(10),
+  	PRIMARY KEY (id_pagina)
+    );"
   );
 
-  //INSERIR DADOS
+  //INSERINDO DADOS
+  $pagina = array('home','empresa','produtos','servicos','contato');
 
-  $titulo = "Home";
-  $conteudo = "Conteudo pagina home";
-
-  $stmt = $conn->prepare("INSERT INTO home (titulo, conteudo) VALUES (:titulo, :conteudo);");
-  $stmt->bindValue(":titulo", $titulo);
-  $stmt->bindValue(":conteudo", $conteudo);
-  $stmt->execute();
+  for ($x=0; $x<5; $x++){
+    $stmt = $conn->prepare("INSERT INTO paginas (nome_pagina) VALUES (:pagina)");
+    $stmt->bindValue(":pagina", $pagina[$x]);
+    $stmt->execute();
+  }
 
 
-  //TABELA EMPRESA
-
-  //LIMPANDO TABELA
-  $conn->query("DROP TABLE IF EXISTS empresa;");
+  //TABELA lista_conteudo
 
   //CRIAR TABELA
-  $conn->query("CREATE TABLE empresa (
-    id INT NOT NULL AUTO_INCREMENT,
-    titulo VARCHAR(10) NOT NULL,
-    conteudo VARCHAR(500) NOT NULL,
-    PRIMARY KEY (id));"
+  $conn->query("CREATE TABLE conteudo (
+  	id_conteudo INT NOT NULL AUTO_INCREMENT,
+  	titulo VARCHAR(15),
+  	conteudo VARCHAR(3600),
+  	pagina INT,
+  	PRIMARY KEY (id_conteudo),
+  	FOREIGN KEY (pagina) REFERENCES paginas(id_pagina));"
   );
 
-  //INSERIR DADOS
+  //INSERINDO DADOS
 
-  $titulo = "Empresa";
-  $conteudo = "Conteudo pagina empresa";
+  $titulo = array('Home','Empresa','Produtos','Servicos','Contato');
 
-  $stmt = $conn->prepare("INSERT INTO empresa (titulo, conteudo) VALUES (:titulo, :conteudo);");
-  $stmt->bindValue(":titulo", $titulo);
-  $stmt->bindValue(":conteudo", $conteudo);
+  for ($x=0; $x<4; $x++){
+    $stmt = $conn->prepare("INSERT INTO conteudo (titulo, conteudo, pagina) VALUES (:titulo, :conteudo, :pagina)");
+    $stmt->bindValue(":titulo", $titulo[$x]);
+    $stmt->bindValue(":conteudo", "Conteudo teste da página ".$pagina[$x]);
+    $stmt->bindValue(":pagina", $x + 1);
+    $stmt->execute();
+  }
+
+  $stmt = $conn->prepare("INSERT INTO conteudo (titulo, conteudo, pagina) VALUES (:titulo, :conteudo, :pagina)");
+  $stmt->bindValue(":titulo", $titulo[$x]);
+  $stmt->bindValue(":conteudo", "Nome;Email;Assunto;Mensagem");
+  $stmt->bindValue(":pagina", $x + 1);
   $stmt->execute();
 
-
-  //TABELA PRODUTOS
-
-  //LIMPANDO TABELA
-  $conn->query("DROP TABLE IF EXISTS produtos;");
+  //TABELA cadastro_contato
 
   //CRIAR TABELA
-  $conn->query("CREATE TABLE produtos (
-    id INT NOT NULL AUTO_INCREMENT,
-    titulo VARCHAR(10) NOT NULL,
-    conteudo VARCHAR(500) NOT NULL,
-    PRIMARY KEY (id));"
-  );
-
-  //INSERIR DADOS
-
-  $titulo = "Produtos";
-  $conteudo = "Conteudo pagina produtos";
-
-  $stmt = $conn->prepare("INSERT INTO produtos (titulo, conteudo) VALUES (:titulo, :conteudo);");
-  $stmt->bindValue(":titulo", $titulo);
-  $stmt->bindValue(":conteudo", $conteudo);
-  $stmt->execute();
-
-
-  //TABELA SERVICOS
-
-  //LIMPANDO TABELA
-  $conn->query("DROP TABLE IF EXISTS servicos;");
-
-  //CRIAR TABELA
-  $conn->query("CREATE TABLE servicos (
-    id INT NOT NULL AUTO_INCREMENT,
-    titulo VARCHAR(10) NOT NULL,
-    conteudo VARCHAR(500) NOT NULL,
-    PRIMARY KEY (id));"
-  );
-
-  //INSERIR DADOS
-
-  $titulo = "Servicos";
-  $conteudo = "Conteudo pagina servicos";
-
-  $stmt = $conn->prepare("INSERT INTO servicos (titulo, conteudo) VALUES (:titulo, :conteudo);");
-  $stmt->bindValue(":titulo", $titulo);
-  $stmt->bindValue(":conteudo", $conteudo);
-  $stmt->execute();
-
-
-  //TABELA CONTATO
-
-  //LIMPANDO TABELA
-  $conn->query("DROP TABLE IF EXISTS contato;");
-
-  //CRIAR TABELA
-  $conn->query("CREATE TABLE contato (
+  $conn->query("CREATE TABLE cadastro_contato (
     id INT NOT NULL AUTO_INCREMENT,
     nome VARCHAR(20) NOT NULL,
     email VARCHAR(20) NOT NULL,
@@ -129,5 +86,6 @@
     $stmt->execute();
 
   }
+
 
 ?>

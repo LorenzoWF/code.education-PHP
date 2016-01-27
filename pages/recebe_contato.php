@@ -1,13 +1,13 @@
 <?php
 
-  require('config/connect.php');
+  require('../config/connect.php');
 
   $nome = $_POST['nome'];
   $email = $_POST['email'];
   $assunto = $_POST['assunto'];
   $mensagem = $_POST['mensagem'];
 
-  $stmt = $conn->prepare("INSERT INTO contato (nome, email, assunto, mensagem) VALUES (:nome, :email, :assunto, :mensagem);");
+  $stmt = $conn->prepare("INSERT INTO cadastro_contato (nome, email, assunto, mensagem) VALUES (:nome, :email, :assunto, :mensagem);");
   $stmt->bindValue(":nome", $nome);
   $stmt->bindValue(":email", $email);
   $stmt->bindValue(":assunto", $assunto);

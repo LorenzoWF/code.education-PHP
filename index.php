@@ -2,20 +2,37 @@
 
     function fazerRota(){
 
+      require("pages/carrega.php");
+
+      if (isset($_GET['pesquisa'])){
+
+        $pesquisa = $_GET['pesquisa'];
+
+        pesquisaConteudo($pesquisa);
+
+      } else {
+
         $rota = parse_url("http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI']);
 
         $path = str_replace("/code_education/PHP/","",$rota['path']);
 
-        $rotasValidas = array('home', 'empresa', 'produtos', 'servicos', 'contato', 'pesquisa', 'recebe_contato');
+        $rotasValidas = array('','home', 'empresa', 'produtos', 'servicos', 'contato', 'recebe_contato');
 
         if (in_array($path,$rotasValidas)){
-			       require("pages/".$path.".php");
-        } else if($path == ""){
-            $path = "home";
-            require("pages/".$path.".php");
+
+          if ($path == ''){
+            $path = 'home';
+          }
+
+          carregaConteudo($path);
+
         } else{
-			       require("pages/404.php");
-		    }
+
+            require("pages/404.php");
+
+        }
+
+      }
 
     }
 
@@ -53,11 +70,9 @@
 
         <div class="col-md-4">
 
-          <form class="form-inline" action="pages/pesquisa.php" method="post">
-
-            <button type="submit" class="btn btn-default" name="button">Pesquisar</button>
-            <input type="text" class="form-control" name="name" value="">
-
+          <form class="form-inline" action="" method="get">
+            <button type="submit" class="btn btn-default">Pesquisar</button>
+            <input type="text" class="form-control" name="pesquisa">
           </form>
 
         </div>
@@ -77,12 +92,7 @@
 				<div class="navbar-text">
 
 					<p>
-						Todos os direitos reservados -
-						<?php
-
-						$ano=date('Y');
-						echo $ano;
-						?>
+						Todos os direitos reservados - <?php $ano=date('Y'); echo $ano;?>
 					</p>
 
 				</div>
