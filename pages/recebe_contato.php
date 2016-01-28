@@ -1,6 +1,6 @@
 <?php
 
-  require('../config/connect.php');
+  require('./config/connect.php');
 
   $nome = $_POST['nome'];
   $email = $_POST['email'];

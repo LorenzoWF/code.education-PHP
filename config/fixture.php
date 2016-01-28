@@ -1,6 +1,6 @@
 <?php
 
-  require 'connect.php';
+  require_once 'connect.php';
 
   //TABELA lista_paginas
 
@@ -13,15 +13,15 @@
   //CRIAR TABELA
   $conn->query("CREATE TABLE paginas (
   	id_pagina INT NOT NULL AUTO_INCREMENT,
-  	nome_pagina VARCHAR(10),
+  	nome_pagina VARCHAR(20),
   	PRIMARY KEY (id_pagina)
     );"
   );
 
   //INSERINDO DADOS
-  $pagina = array('home','empresa','produtos','servicos','contato');
+  $pagina = array('home','empresa','produtos','servicos','contato', 'recebe_contato');
 
-  for ($x=0; $x<5; $x++){
+  for ($x=0; $x<6; $x++){
     $stmt = $conn->prepare("INSERT INTO paginas (nome_pagina) VALUES (:pagina)");
     $stmt->bindValue(":pagina", $pagina[$x]);
     $stmt->execute();

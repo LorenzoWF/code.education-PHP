@@ -16,7 +16,20 @@
 
         $path = str_replace("/code_education/PHP/","",$rota['path']);
 
-        $rotasValidas = array('','home', 'empresa', 'produtos', 'servicos', 'contato', 'recebe_contato');
+        require('./config/connect.php');
+
+        $stmt2 = $conn->prepare("SELECT nome_pagina FROM paginas;");
+        $stmt2->execute();
+
+        $rotasValidas = array();
+
+        for($x=0; $row2 = $stmt2->fetch(); $x++) {
+
+            $rotasValidas[$x] = $row2['nome_pagina'];
+
+        }
+
+        $rotasValidas[$x] = '';
 
         if (in_array($path,$rotasValidas)){
 

@@ -45,6 +45,8 @@
 
     } else {
 
+      require('./config/connect.php');
+
       $stmt2 = $conn->prepare("SELECT nome_pagina FROM paginas;");
       $stmt2->execute();
 
