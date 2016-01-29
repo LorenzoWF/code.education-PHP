@@ -36,6 +36,7 @@
   $conn->query("CREATE TABLE paginas (
   	id_pagina INT NOT NULL AUTO_INCREMENT,
   	nome_pagina VARCHAR(20) NOT NULL,
+    edicao INT NOT NULL,
   	PRIMARY KEY (id_pagina)
     );"
   );
@@ -43,11 +44,20 @@
   //INSERINDO DADOS
   $pagina = array('home','empresa','produtos','servicos','contato', 'edicao', 'recebe_contato');
 
-  for ($x=0; $x<7; $x++){
-    $stmt = $conn->prepare("INSERT INTO paginas (nome_pagina) VALUES (:pagina)");
+  for ($x=0; $x<4; $x++){
+    $stmt = $conn->prepare("INSERT INTO paginas (nome_pagina, edicao) VALUES (:pagina, :edicao)");
     $stmt->bindValue(":pagina", $pagina[$x]);
+    $stmt->bindValue(":edicao", 1);
     $stmt->execute();
   }
+
+  for ($x=$x; $x<7; $x++){
+    $stmt = $conn->prepare("INSERT INTO paginas (nome_pagina, edicao) VALUES (:pagina, :edicao)");
+    $stmt->bindValue(":pagina", $pagina[$x]);
+    $stmt->bindValue(":edicao", 0);
+    $stmt->execute();
+  }
+
 
 
   //TABELA conteudo
