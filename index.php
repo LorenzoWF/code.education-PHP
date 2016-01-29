@@ -41,7 +41,7 @@
 
         } else{
 
-            require("pages/404.php");
+          require("pages/404.php");
 
         }
 
@@ -60,8 +60,12 @@
 
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 
+
 </head>
 <body>
+
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript" src="js/bootstrap.js"></script>
 
 	<div class="container">
 
