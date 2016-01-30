@@ -16,17 +16,15 @@
   	id_usuario INT NOT NULL AUTO_INCREMENT,
   	nome VARCHAR(20) NOT NULL,
     senha VARCHAR(32) NOT NULL,
-    permissao INT NOT NULL
   	PRIMARY KEY (id_usuario)
     );"
   );
 
   //INSERINDO OS DADOS
 
-  $stmt = $conn->prepare("INSERT INTO usuarios (nome, senha, permissao) VALUES (:nome, :senha, :permissao)");
+  $stmt = $conn->prepare("INSERT INTO usuarios (nome, senha) VALUES (:nome, :senha)");
   $stmt->bindValue(":nome", "admin");
   $stmt->bindValue(":senha", md5("admin"));
-  $stmt->bindValue(":permissao", 1);
   $stmt->execute();
 
 
@@ -42,7 +40,7 @@
   );
 
   //INSERINDO DADOS
-  $pagina = array('home','empresa','produtos','servicos','contato', 'edicao', 'recebe_contato');
+  $pagina = array('home','empresa','produtos','servicos','contato', 'edicao', 'recebe_contato', 'logout');
 
   for ($x=0; $x<4; $x++){
     $stmt = $conn->prepare("INSERT INTO paginas (nome_pagina, edicao) VALUES (:pagina, :edicao)");
@@ -51,7 +49,7 @@
     $stmt->execute();
   }
 
-  for ($x=$x; $x<7; $x++){
+  for ($x=$x; $x<8; $x++){
     $stmt = $conn->prepare("INSERT INTO paginas (nome_pagina, edicao) VALUES (:pagina, :edicao)");
     $stmt->bindValue(":pagina", $pagina[$x]);
     $stmt->bindValue(":edicao", 0);
@@ -74,17 +72,15 @@
 
   //INSERINDO DADOS
 
-  $titulo = array('Home','Empresa','Produtos','Servicos','Contato', 'Edição de conteúdo', 'Recebe_contato');
+  $titulo = array('Home','Empresa','Produtos','Servicos','Contato');
 
-  for ($x=0; $x<5; $x++){
+  for ($x=0; $x<4; $x++){
     $stmt = $conn->prepare("INSERT INTO conteudo (titulo, conteudo, pagina) VALUES (:titulo, :conteudo, :pagina)");
     $stmt->bindValue(":titulo", $titulo[$x]);
     $stmt->bindValue(":conteudo", "Conteudo teste da página ".$pagina[$x]);
     $stmt->bindValue(":pagina", $x + 1);
     $stmt->execute();
   }
-
-  $x++;
 
   $stmt = $conn->prepare("INSERT INTO conteudo (titulo, conteudo, pagina) VALUES (:titulo, :conteudo, :pagina)");
   $stmt->bindValue(":titulo", $titulo[$x]);
